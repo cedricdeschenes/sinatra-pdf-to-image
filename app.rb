@@ -8,11 +8,9 @@ get '/:pdf_path/?:page?' do
   pdf = Grim.reap("#{pdf_path}.pdf")
   count = pdf.count
 
-  if page >= count
-    halt 404
-  end
+  halt 404 if page >= count
 
   png = pdf[page].save("#{pdf_path}.png")
 
-  send_file "#{pdf_path}.png", type: 'image/png', disposition: 'inline'
+  return send_file("#{pdf_path}.png", type: 'image/png', disposition: 'inline')
 end
