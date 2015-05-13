@@ -2,7 +2,7 @@ require 'sinatra'
 require 'grim'
 
 get '/:pdf_path/?:page?' do
-  pdf_path = params[:pdf_path]
+  pdf_path = File.basename(params[:pdf_path])
   page = params[:page] ? params[:page].to_i : 0
 
   pdf = Grim.reap("#{pdf_path}.pdf")
